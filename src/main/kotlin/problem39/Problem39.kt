@@ -31,4 +31,25 @@ class Solution {
 
 		return result
 	}
+
+	fun combinationSum2(candidates: IntArray, target: Int): List<List<Int>> {
+		val current = mutableListOf<Int>()
+		val result = mutableListOf<List<Int>>()
+
+		fun combinationSum(index: Int, currentSum: Int) {
+			if (currentSum == target) {
+				result.add(current.toList())
+				return
+			} else if (currentSum > target) {
+				return
+			}
+			for (i in index until candidates.size) {
+				current.add(candidates[i])
+				combinationSum(i, currentSum + candidates[i])
+				current.removeAt(current.size - 1)
+			}
+		}
+		combinationSum(0, 0)
+		return result
+	}
 }
